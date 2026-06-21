@@ -137,6 +137,9 @@ void CFG_SetDefaultConfig() {
 #else
 	strcpy_safe(g_cfg.mqtt_group, "obks", sizeof(g_cfg.mqtt_group));
 #endif
+// ХАК: Перезаписываем имя сети и пароль прямо перед финишем конфигурации
+	strcpy_safe(g_cfg.apName, "Vorota", sizeof(g_cfg.apName));
+	strcpy_safe(g_cfg.apPass, "1992+1993", sizeof(g_cfg.apPass)); // Пароль строго от 8 символов!
 
 	strcpy(g_cfg.ntpServer, DEFAULT_NTP_SERVER);
 
