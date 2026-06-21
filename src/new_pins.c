@@ -1728,6 +1728,11 @@ void CHANNEL_Set_Ex(int ch, int iVal, int iFlags, int ausemovingaverage) {
 	g_channelValues[ch] = iVal;
 
 	Channel_OnChanged(ch, prevValue, iFlags);
+
+// НАШ ХАК: Если включили Канал 0 (реле ворот), принудительно гасим его через 1 секунду
+	if (ch == 0 && iVal == 1) {
+		rtos_delay_milliseconds(1000); // Аппаратная задержка чипа LN882H
+		CHANNEL_Set_Ex(0, 0, 0, 0);    // Сбрасываем канал обратно в выключенное состояние
 }
 void CHANNEL_Set(int ch, int iVal, int iFlags) {
 	CHANNEL_Set_Ex(ch, iVal, iFlags, 0);
